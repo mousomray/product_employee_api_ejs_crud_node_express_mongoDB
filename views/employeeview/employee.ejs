@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../common/head.ejs') %>
+  <body>
+    <%- include('../common/navbar.ejs') %>
+
+    
+
+    <!-- Team Start -->
+    <div class="container-xxl py-5">
+      <div class="container">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+          <h6 class="section-title bg-white text-center text-primary px-3">
+            Employees
+          </h6>
+          <h1 class="mb-5">Expert Employees</h1>
+        </div>
+
+        <!-- Flash Messages -->
+    <% if (sucess && sucess != '') { %>
+      <div
+        class="alert alert-success"
+        role="alert"
+        style="
+          position: absolute;
+          top: 100px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 50%;
+          text-align: center;
+          background-color: #d4edda;
+          color: #155724;
+          border: 1px solid #c3e6cb;
+          border-radius: 5px;
+          padding: 10px;
+          z-index: 1000;
+        "
+      >
+        <%= sucess %>
+      </div>
+      <% } else if (err && err != '') { %>
+      <div
+        class="alert alert-danger"
+        role="alert"
+        style="
+          position: absolute;
+          top: 50px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 50%;
+          text-align: center;
+          background-color: #f8d7da;
+          color: #721c24;
+          border: 1px solid #f5c6cb;
+          border-radius: 5px;
+          padding: 10px;
+          z-index: 1000;
+        "
+      >
+        <%= err %>
+      </div>
+      <% } %>
+
+        <div class="row g-4">
+          <!-- Table for employee data -->
+          <table class="table table-responsive">
+            <thead>
+              <tr>
+                <th scope="col">SL no</th>
+                <th scope="col">ID</th>
+                <th scope="col">Picture</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone</th>
+                <th scope="col">City</th>
+                <th scope="col">Pin</th>
+                <th scope="col">Position</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% if (employees.length > 0) { %> <% employees.slice(0,
+              employees.length).reverse().forEach((value, index) => { %>
+              <tr>
+                <th scope="row"><%= index + 1 %></th>
+                <th scope="row"><%= value._id.toString().slice(-4) %></th>
+                <td>
+                  <img
+                    src="http://localhost:3004/<%= value.image %>"
+                    alt="<%= value.name %>"
+                    height="80px"
+                    width="80px"
+                    class="rounded-circle"
+                  />
+                </td>
+                <td><%= value.name %></td>
+                <td><%= value.email %></td>
+                <td><%= value.phone %></td>
+                <td><%= value.city %></td>
+                <td><%= value.pin %></td>
+                <td><%= value.position %></td>
+                <td>
+                  <a
+                    href="/singleemployeeget/<%= value._id %>"
+                    style="display: inline"
+                  >
+                    <button class="btn btn-warning">Edit</button>
+                  </a>
+                </td>
+                <td>
+                  <form
+                    action="/deleteemployeeget/<%= value._id %>"
+                    style="display: inline"
+                  >
+                    <button class="btn btn-danger">Delete</button>
+                  </form>
+                </td>
+              </tr>
+              <% }) %> <% } else { %>
+              <!-- Display 'No data found' if employees array is empty -->
+              <tr>
+                <td colspan="10" class="text-center">
+                  <span style="color: red; font-weight: bold"
+                    >No data found</span
+                  >
+                </td>
+              </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- Team End -->
+
+    <%- include('../common/footer.ejs') %>
+  </body>
+</html>

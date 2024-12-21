@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../common/head.ejs') %>
+  <body>
+    <%- include('../common/navbar.ejs') %>
+
+    <!-- Flash Messages -->
+    <% if (sucess && sucess != '') { %>
+      <div
+        class="alert alert-success"
+        role="alert"
+        style="
+          position: absolute;
+          top: 50px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 50%;
+          text-align: center;
+          background-color: #d4edda;
+          color: #155724;
+          border: 1px solid #c3e6cb;
+          border-radius: 5px;
+          padding: 10px;
+          z-index: 1000;
+        "
+      >
+        <%= sucess %>
+      </div>
+      <% } else if (err && err != '') { %>
+      <div
+        class="alert alert-danger"
+        role="alert"
+        style="
+          position: absolute;
+          top: 100px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 50%;
+          text-align: center;
+          background-color: #f8d7da;
+          color: #721c24;
+          border: 1px solid #f5c6cb;
+          border-radius: 5px;
+          padding: 10px;
+          z-index: 1000;
+        "
+      >
+        <%= err %>
+      </div>
+      <% } %>
+
+    <div
+      class="container mt-5"
+      style="
+        max-width: 600px;
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      "
+    >
+      <h2 class="mb-4 text-center" style="color: #343a40">Add New Employee</h2>
+      <form action="/addemployeecreate" method="POST"enctype="multipart/form-data">
+        <!-- Employee Name -->
+        <div class="form-group">
+          <label for="Name" style="font-weight: bold; color: #495057"
+            >Employee Name</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            name="name"
+            required
+            minlength="3"
+            placeholder="Enter employee name"
+            style="border: 1px solid #ced4da; border-radius: 5px; padding: 10px"
+          />
+          <small
+            class="form-text text-muted"
+            style="font-size: 12px; color: red"
+            >Employee name must be at least 3 characters.</small
+          >
+        </div>
+
+        <!--  Email -->
+        <div class="form-group">
+          <label for="Name" style="font-weight: bold; color: #495057"
+            >Employee Email</label
+          >
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            required
+            pattern="/[a-z0-9\._%+!$&*=^|~#%'`?{}/\-]+@([a-z0-9\-]+\.){1,}([a-z]{2,16})/"
+            placeholder="Enter employee email"
+            style="border: 1px solid #ced4da; border-radius: 5px; padding: 10px"
+          />
+          <small
+            class="form-text text-muted"
+            style="font-size: 12px; color: red"
+            >Employee email should be xyz@gmail.com format</small
+          >
+        </div>
+
+        <!-- Phone -->
+        <div class="form-group">
+          <label for="price" style="font-weight: bold; color: #495057"
+            >Phone</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            id="phone"
+            name="phone"
+            required
+            maxlength="10"
+            minlength="10"
+            placeholder="Enter phone number"
+            style="border: 1px solid #ced4da; border-radius: 5px; padding: 10px"
+          />
+        </div>
+
+        <!-- City-->
+        <div class="form-group">
+          <label for="Name" style="font-weight: bold; color: #495057"
+            >City</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="city"
+            name="city"
+            required
+            minlength="3"
+            placeholder="Enter city"
+            style="border: 1px solid #ced4da; border-radius: 5px; padding: 10px"
+          />
+          <small
+            class="form-text text-muted"
+            style="font-size: 12px; color: red"
+            >Employee city must be at least 3 characters.</small
+          >
+        </div>
+
+        <!-- Pin -->
+        <div class="form-group">
+          <label for="Name" style="font-weight: bold; color: #495057"
+            >Pin</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            id="pin"
+            name="pin"
+            required
+            placeholder="Enter Pin"
+            style="border: 1px solid #ced4da; border-radius: 5px; padding: 10px"
+          />
+          <small
+            class="form-text text-muted"
+            style="font-size: 12px; color: red"
+            >Pin is required</small
+          >
+        </div>
+
+        <!-- Position-->
+        <div class="form-group">
+          <label for="Name" style="font-weight: bold; color: #495057"
+            >Position</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="position"
+            name="position"
+            required
+            minlength="3"
+            placeholder="Enter position"
+            style="border: 1px solid #ced4da; border-radius: 5px; padding: 10px"
+          />
+          <small
+            class="form-text text-muted"
+            style="font-size: 12px; color: red"
+            >Employee position must be at least 3 characters.</small
+          >
+        </div>
+
+        <!-- Image URL -->
+        <div class="form-group">
+          <label for="image" style="font-weight: bold; color: #495057"
+            >Image URL</label
+          >
+          <input
+            type="file"
+            class="form-control"
+            id="image"
+            name="image"
+            accept="image/*"
+            placeholder="Enter image URL"
+            style="border: 1px solid #ced4da; border-radius: 5px; padding: 10px"
+          />
+          <small
+            class="form-text text-muted"
+            style="font-size: 12px; color: red"
+            >If left empty, a default image will be used.</small
+          >
+        </div>
+
+        <!-- Submit Button -->
+        <button
+          type="submit"
+          class="btn btn-primary btn-block mt-4"
+          style="padding: 10px; font-weight: bold"
+        >
+          Add Employee
+        </button>
+      </form>
+    </div>
+
+    <%- include('../common/footer.ejs') %>
+  </body>
+</html>

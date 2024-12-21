@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../common/head.ejs') %>
+  <body
+    style="
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+    "
+  >
+    <%- include('../common/navbar.ejs') %>
+
+    <!-- Flash Messages -->
+    <% if (sucess && sucess != '') { %>
+      <div
+        class="alert alert-success"
+        role="alert"
+        style="
+          position: absolute;
+          top: 100px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 50%;
+          text-align: center;
+          background-color: #d4edda;
+          color: #155724;
+          border: 1px solid #c3e6cb;
+          border-radius: 5px;
+          padding: 10px;
+          z-index: 1000;
+        "
+      >
+        <%= sucess %>
+      </div>
+      <% } else if (err && err != '') { %>
+      <div
+        class="alert alert-danger"
+        role="alert"
+        style="
+          position: absolute;
+          top: 50px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 50%;
+          text-align: center;
+          background-color: #f8d7da;
+          color: #721c24;
+          border: 1px solid #f5c6cb;
+          border-radius: 5px;
+          padding: 10px;
+          z-index: 1000;
+        "
+      >
+        <%= err %>
+      </div>
+      <% } %>
+
+    <!-- Product Section Start -->
+    <div class="container-xxl py-5" style="max-width: 1200px; margin: auto">
+      <!-- Search Form -->
+      <div
+        class="search-container"
+        style="display: flex; justify-content: center; margin-top: 20px; margin-bottom: 20px"
+      >
+        <form
+          action="/productsearch"
+          method="GET"
+          style="width: 100%; max-width: 500px"
+        >
+          <div
+            class="input-group"
+            style="
+              display: flex;
+              align-items: center;
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            "
+          >
+            <input
+              type="text"
+              name="brand"
+              class="form-control"
+              placeholder="Enter brand name"
+              required
+              style="
+                flex: 1;
+                padding: 12px 15px;
+                border: 1px solid #ddd;
+                border-radius: 5px 0 0 5px;
+                outline: none;
+                transition: box-shadow 0.3s ease;
+              "
+              onfocus="this.style.boxShadow='0 0 5px rgba(0, 123, 255, 0.5)';"
+              onblur="this.style.boxShadow='none';"
+            />
+            <button
+              type="submit"
+              class="btn btn-primary"
+              style="
+                padding: 12px 20px;
+                background-color: #007bff;
+                border: none;
+                border-radius: 0 5px 5px 0;
+                color: white;
+                cursor: pointer;
+                font-weight: bold;
+                transition: background-color 0.3s ease;
+              "
+              onmouseover="this.style.backgroundColor='#0056b3';"
+              onmouseout="this.style.backgroundColor='#007bff';"
+            >
+              Search
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="container">
+        <% if (products && products.length > 0) { %>
+        <div class="row g-4">
+          <% products.slice(0, products.length).reverse().forEach((value) => {
+          %>
+          <div
+            class="col-lg-4 col-md-6 wow fadeInUp"
+            data-wow-delay="0.1s"
+            style="height: 500px; display: flex; align-items: stretch"
+          >
+            <div
+              class="service-item text-center pt-3"
+              style="
+                background-color: #ffffff;
+                border-radius: 8px;
+                padding: 20px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+              "
+            >
+              <div class="p-4">
+                <img
+                  src="http://localhost:3004/<%= value.image %>"
+                  alt="<%= value.p_name %>"
+                  class="img-fluid mb-3"
+                  style="
+                    width: 100%;
+                    height: 200px;
+                    border-radius: 8px;
+                    object-fit: cover;
+                  "
+                />
+                <h5 class="mb-3" style="font-size: 1.2em; color: #333">
+                  <%= value.p_name %>
+                </h5>
+                <p style="font-size: 1em; color: #666; margin-bottom: 10px">
+                  <strong>Brand:</strong> <%= value.brand %>
+                </p>
+                <p style="font-size: 1em; color: #666; margin-bottom: 10px">
+                  <strong>Price:</strong> $<%= value.price %>
+                </p>
+                <p style="font-size: 0.9em; color: #777; margin-bottom: 5px">
+                  <strong>Color:</strong> <%= value.p_color %>
+                </p>
+                <p style="font-size: 0.9em; color: #777; margin-bottom: 15px">
+                  <strong>Size:</strong> <%= value.p_size %>
+                </p>
+
+                <div style="display: flex; justify-content: center; gap: 10px">
+                  <!-- Details Button -->
+                  <a
+                    href="/productdetails/<%= value._id %>"
+                    style="display: inline"
+                  >
+                    <button
+                      style="
+                        padding: 8px 15px;
+                        font-size: 0.9em;
+                        color: #fff;
+                        background-color: #007bff;
+                        border: none;
+                        border-radius: 5px;
+                        cursor: pointer;
+                        transition: background-color 0.3s ease;
+                      "
+                      onmouseover="this.style.backgroundColor='#0056b3';"
+                      onmouseout="this.style.backgroundColor='#007bff';"
+                    >
+                      Details
+                    </button>
+                  </a>
+
+                  <!-- Edit Button -->
+                  <a
+                    href="/singleproductget/<%= value._id %>"
+                    style="display: inline"
+                  >
+                    <button
+                      style="
+                        padding: 8px 15px;
+                        font-size: 0.9em;
+                        color: #fff;
+                        background-color: #ffc107;
+                        border: none;
+                        border-radius: 5px;
+                        cursor: pointer;
+                        transition: background-color 0.3s ease;
+                      "
+                      onmouseover="this.style.backgroundColor='#e0a800';"
+                      onmouseout="this.style.backgroundColor='#ffc107';"
+                    >
+                      Edit
+                    </button>
+                  </a>
+
+                  <!-- Details Delete -->
+                  <a
+                    href="/deleteproductget/<%= value._id %>"
+                    style="display: inline"
+                  >
+                    <button
+                      style="
+                        padding: 8px 15px;
+                        font-size: 0.9em;
+                        color: #fff;
+                        background-color: #dc3545;
+                        border: none;
+                        border-radius: 5px;
+                        cursor: pointer;
+                        transition: background-color 0.3s ease;
+                      "
+                      onmouseover="this.style.backgroundColor='#c82333';"
+                      onmouseout="this.style.backgroundColor='#dc3545';"
+                    >
+                      Delete
+                    </button>
+                  </a>
+                </div>
+                <!-- End of Action Buttons -->
+              </div>
+            </div>
+          </div>
+          <% }) %>
+        </div>
+        <% } else{ %>
+        <p class="text-danger text-center mt-4">No products found</p>
+        <% } %>
+      </div>
+    </div>
+    <!-- Product Section End -->
+
+    <%- include('../common/footer.ejs') %>
+  </body>
+</html>
