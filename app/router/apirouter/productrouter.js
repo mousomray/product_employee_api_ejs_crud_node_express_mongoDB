@@ -12,4 +12,4 @@ router.get('/productlist/search', productcontroller.search) // Search Product wi
 router.get('/products/brands', productcontroller.getBrands); // Brand List
 router.get('/products/brand/:brand', productcontroller.branddetails); // Brand Details
 
-module.exports = router
+module.exports = router 
